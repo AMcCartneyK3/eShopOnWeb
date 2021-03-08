@@ -24,4 +24,22 @@ COPY --from=build /app/src/Web/out ./
 # Optional: Set this here if not setting it from docker-compose.yml
 # ENV ASPNETCORE_ENVIRONMENT Development
 
+# Install the agent
+#RUN apt-get update && apt-get install -y wget ca-certificates gnupg \
+#&& echo 'deb http://apt.newrelic.com/debian/ newrelic non-free' | tee /etc/apt/sources.list.d/newrelic.list \
+#&& wget https://download.newrelic.com/548C16BF.gpg \
+#&& apt-key add 548C16BF.gpg \
+#&& apt-get update \
+#&& apt-get install -y newrelic-netcore20-agent
+
+# Enable the agent
+#ENV CORECLR_ENABLE_PROFILING=1 \
+#CORECLR_PROFILER={36032161-FFC0-4B61-B559-F6C5D41BAE5A} \
+#CORECLR_NEWRELIC_HOME=/usr/local/newrelic-netcore20-agent \
+#CORECLR_PROFILER_PATH=/usr/local/newrelic-netcore20-agent/libNewRelicProfiler.so \
+#NEW_RELIC_LICENSE_KEY=eu01xx3b79bc688798dc38a6fbee7035FFFFNRAL \
+#NEW_RELIC_APP_NAME=eshop-glass-pane
+
+WORKDIR /app
+
 ENTRYPOINT ["dotnet", "Web.dll"]

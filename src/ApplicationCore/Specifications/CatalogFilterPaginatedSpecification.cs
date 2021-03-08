@@ -5,10 +5,11 @@ namespace Microsoft.eShopWeb.ApplicationCore.Specifications
 {
     public class CatalogFilterPaginatedSpecification : Specification<CatalogItem>
     {
+        [System.Obsolete]
         public CatalogFilterPaginatedSpecification(int skip, int take, int? brandId, int? typeId)
             : base()
         {
-            Query
+            _ = Query
                 .Where(i => (!brandId.HasValue || i.CatalogBrandId == brandId) &&
                 (!typeId.HasValue || i.CatalogTypeId == typeId))
                 .Paginate(skip, take);
